@@ -72,9 +72,11 @@
 	      <audio id="sound" src="assets/sound.mp3" preload="auto"></audio>
       </a-assets>
       
-    <a-camera><a-cursor visible="true"></a-cursor></a-camera>
+    <a-camera><a-cursor visible="false"></a-cursor>
+    
+	    <a-sound src="#sound" autoplay="true" loop="true" positional="false" position="0 2 -1"></a-sound>
+    </a-camera>
   
-    <a-sky color="black" scale="0 0 0" visible="false" sound="src: #sound; autoplay: true; loop: true"> </a-sky>
 
       <a-entity id="loc_1">
         <a-sky material="src: #1"></a-sky>
