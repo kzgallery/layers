@@ -2,6 +2,11 @@ AFRAME.registerComponent('portal', {
 update: function () {
   var el = this.el;  // <a-sphere>
   var flag = false;
+  var timer;
+
+    var parel = el.parentEl;
+	<!-- get element to dissapear gradualy --> 
+    var sky = parel.querySelector('a-sky');
       
 	el.addEventListener('mouseenter', () => {
 		flag = true;
@@ -10,6 +15,14 @@ update: function () {
 		el.object3D.scale.y = el.object3D.scale.y * 2;
 		el.object3D.scale.z = el.object3D.scale.z * 2;
 		setTimeout(changeScene, 800);
+    timer = setInterval(function () {
+	    console.log(sky.components.material.material.opacity); 
+	    sky.components.material.material.opacity = sky.components.material.material.opacity * 0.9;
+	    if (sky.components.material.material.opacity < 0.1) {
+		    clearInterval(timer);
+		    sky.components.material.material.opacity = 1;
+	    } 
+    }, 100);
 	}
       });
 	el.addEventListener('mouseleave', () => {
@@ -18,6 +31,8 @@ update: function () {
 		el.object3D.scale.x = el.object3D.scale.x * 0.5;
 		el.object3D.scale.y = el.object3D.scale.y * 0.5;
 		el.object3D.scale.z = el.object3D.scale.z * 0.5;
+	    clearInterval(timer);
+	    sky.components.material.material.opacity = 1;
 	}
       });
       function changeScene() {
@@ -29,7 +44,6 @@ update: function () {
 		el.object3D.scale.y = el.object3D.scale.y * 0.5;
 		el.object3D.scale.z = el.object3D.scale.z * 0.5;
 
-    var parel = el.parentEl;
 	<!-- get the entity out of the way --> 
 	parel.object3D.scale.x = 0;
 	parel.object3D.scale.y = 0;
