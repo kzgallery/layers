@@ -2,177 +2,129 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>The Key to Eternity</title>
-    <meta name="the key to eternity" content=" ">
-    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
-        <script>
-      AFRAME.registerComponent('handle-events', {
-        update: function () {
-          var el = this.el;  // <a-sphere>
-          var flag = false;
-	      
-		el.addEventListener('mouseenter', () => {
-			flag = true;
-		if (el.parentEl.getAttribute('visible')) {
-			el.object3D.scale.x = el.object3D.scale.x * 2;
-			el.object3D.scale.y = el.object3D.scale.y * 2;
-			el.object3D.scale.z = el.object3D.scale.z * 2;
-			setTimeout(changeScene, 800);
-		}
-	      });
-		el.addEventListener('mouseleave', () => {
-	        flag = false;
-		if (el.parentEl.getAttribute('visible')) {
-			el.object3D.scale.x = el.object3D.scale.x * 0.5;
-			el.object3D.scale.y = el.object3D.scale.y * 0.5;
-			el.object3D.scale.z = el.object3D.scale.z * 0.5;
-		}
-	      });
-	      function changeScene() {
-		  console.log("flag");
-		  console.log(flag);
-		  if (flag) {
-			flag = false;
-			el.object3D.scale.x = el.object3D.scale.x * 0.5;
-			el.object3D.scale.y = el.object3D.scale.y * 0.5;
-			el.object3D.scale.z = el.object3D.scale.z * 0.5;
-            var parel = el.parentEl;
-		<!-- get the entity out of the way --> 
-                parel.object3D.scale.x = 0;
-                parel.object3D.scale.y = 0;
-                parel.object3D.scale.z = 0;
-            var toel = document.getElementById(el.getAttribute('toid'));
-		
-                toel.object3D.scale.x = 1;
-                toel.object3D.scale.y = 1;
-                toel.object3D.scale.z = 1;
-	    toel.setAttribute('visible', 'true');
-            
-            document.getElementById(el.parentEl.id).setAttribute('visible', 'false');
-		  };
-		     }
-		    
-		}
-      });
-    </script>
+    <title>layers</title>
+    <script src="assets/aframe.min.js"></script>
+    <script src="portals.js"></script>
   </head>
   
   <body>
-    <a-scene background="color: black" loading-screen="dotsColor: red; backgroundColor: black">
+    <a-scene background="color: black" loading-screen="dotsColor: white; backgroundColor: black">
       <a-assets>
-	      <img id="4" src="assets/4-min.jpg">
-	      <img id="6" src="assets/6-min.jpg">
-	      <img id="1" src="assets/1-min.jpg">
-	      <img id="9" src="assets/9-min.jpg">
-	      <img id="5" src="assets/5-min.jpg">
-	      <img id="8" src="assets/8-min.jpg">
-	      <img id="2" src="assets/2-min.jpg">
-	      <img id="7" src="assets/7-min.jpg">
-	      <img id="3" src="assets/3-min.jpg">
+	      <img id="4" src="assets/4.jpg">
+	      <img id="1" src="assets/1.jpg">
+	      <img id="5" src="assets/5.jpg">
+	      <img id="2" src="assets/2.jpg">
+	      <img id="3" src="assets/3.jpg">
 	      <audio id="sound" src="assets/sound.mp3" preload="auto"></audio>
       </a-assets>
       
-    <a-camera><a-cursor visible="false"></a-cursor>
+    <a-camera><a-cursor visible="false" color="red"></a-cursor>
     
 	    <a-sound src="#sound" autoplay="true" loop="true" positional="false" position="0 2 -1"></a-sound>
     </a-camera>
   
 
-      <a-entity id="loc_1">
-        <a-sky material="src: #1"></a-sky>
-<a-sphere  toid="loc_2" scale="3 3 3" position="-1 -6 -64" material="src: #2" animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" handle-events></a-sphere>
+      <a-entity id="loc_3" rotation="0 -90 0">
+        <a-sky material="src: #3"></a-sky>
         
 	<a-sphere 
-		toid="loc_3" 
-		scale="3 3 3" 
-		position="64 -6 0" 
-		material="src: #3" 
+		toid="loc_2" 
+		scale="5 5 5" 
+		position="-64 0 -30" 
+		material="src: #2" 
 		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
-	</a-sphere>
-
-	<a-sphere 
-		toid="loc_4" 
-		scale="3 3 3" 
-		position="-64 -6 0" 
-		material="src: #4" 
-		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
+		portal> 
 	</a-sphere>
 
 	<a-sphere 
 		toid="loc_5" 
-		scale="3 3 3" 
-		position="-1 -6 64" 
+		scale="5 5 5" 
+		position="-64 -7 30" 
 		material="src: #5" 
 		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
+		portal> 
 	</a-sphere>
 
+	<a-sphere 
+		toid="loc_4" 
+		scale="6 6 6" 
+		position="-64 10 120" 
+		material="src: #4" 
+		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
+		portal> 
+	</a-sphere>
       </a-entity>
+
 
       <a-entity id="loc_2" visible=false scale="0 0 0">
         <a-sky material="src: #2" rotation="0 270 0"></a-sky>
+
 	<a-sphere 
-		toid="loc_1" 
-		scale="3 3 3" 
-		position="-1 -6 64" 
-		material="src: #1" 
+		toid="loc_5" 
+		scale="6 6 6" 
+		position="10 -60 -60" 
+		material="src: #5" 
 		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
+		portal> 
 	</a-sphere>
 
 	<a-sphere 
-		toid="loc_6" 
-		scale="3 3 3" 
-		position="-1 -6 -64" 
-		material="src: #6" 
+		toid="loc_1" 
+		scale="6 6 6" 
+		position="110 -60 15" 
+		material="src: #1" 
 		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
+		portal> 
 	</a-sphere>
       
+	<a-sphere 
+		toid="loc_4" 
+		scale="3 3 3" 
+		position="-30 10 -40" 
+		material="src: #4" 
+		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
+		portal> 
+	</a-sphere>
+
+	<a-sphere 
+		toid="loc_3" 
+		scale="3 3 3" 
+		position="-50 10 0" 
+		material="src: #3" 
+		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
+		portal> 
+	</a-sphere>
       </a-entity>
         
 
-      <a-entity id="loc_3" visible=false scale="0 0 0">
-        <a-sky material="src: #3" rotation="0 180 0"></a-sky>
-	<a-sphere 
-		toid="loc_1" 
-		scale="3 3 3" 
-		position="-64 -6 -1" 
-		material="src: #1" 
-		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
-	</a-sphere>
-
-	<a-sphere 
-		toid="loc_9" 
-		scale="3 3 3" 
-		position="64 -6 -1" 
-		material="src: #1" 
-		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
-	</a-sphere>
-      </a-entity>
-
       <a-entity id="loc_4" visible=false scale="0 0 0">
         <a-sky material="src: #4" rotation="0 0 0"></a-sky>
+
 	<a-sphere 
-		toid="loc_1" 
-		scale="3 3 3" 
-		position="64 -6 -1" 
-		material="src: #1" 
+		toid="loc_2" 
+		scale="2 2 2" 
+		position="-30 -2 -27" 
+		material="src: #2" 
 		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
+		portal> 
 	</a-sphere>
 
 	<a-sphere 
-		toid="loc_8" 
+		toid="loc_3" 
 		scale="3 3 3" 
-		position="-64 -6 -1" 
-		material="src: #8" 
+		position="7 7 -40" 
+		material="src: #3" 
 		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
+		portal> 
+	</a-sphere>
+
+	<a-sphere 
+		toid="loc_5" 
+		scale="1 1 1" 
+		position="-30 -9 -9" 
+		material="src: #5" 
+		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
+		portal> 
 	</a-sphere>
       </a-entity>
 
@@ -185,68 +137,49 @@
 		position="-1 -6 -64" 
 		material="src: #1" 
 		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
+		portal> 
 	</a-sphere>
 
-	<a-sphere 
-		toid="loc_7" 
-		scale="3 3 3" 
-		position="-1 -6 64" 
-		material="src: #7" 
-		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
-	</a-sphere>
-
-      </a-entity>
-
-
-      <a-entity id="loc_6" visible=false scale="0 0 0">
-        <a-sky material="src: #6" rotation="0 270 0"></a-sky>
 	<a-sphere 
 		toid="loc_2" 
 		scale="3 3 3" 
-		position="-1 -6 64" 
+		position="76 46 3" 
 		material="src: #2" 
 		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
+		portal> 
 	</a-sphere>
-      </a-entity>
 
-      <a-entity id="loc_7" visible=false scale="0 0 0">
-        <a-sky material="src: #7" rotation="0 90 0"></a-sky>
-	<a-sphere 
-		toid="loc_5" 
-		scale="3 3 3" 
-		position="-1 -6 -64" 
-		material="src: #2" 
-		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
-	</a-sphere>
-      </a-entity>
-
-      <a-entity id="loc_8" visible=false scale="0 0 0">
-        <a-sky material="src: #8" rotation="0 0 0"></a-sky>
-	<a-sphere 
-		toid="loc_4" 
-		scale="3 3 3" 
-		position="64 -6 -1" 
-		material="src: #4" 
-		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
-	</a-sphere>
-      </a-entity>
-
-      <a-entity id="loc_9" visible=false scale="0 0 0">
-        <a-sky material="src: #9" rotation="0 180 0"></a-sky>
 	<a-sphere 
 		toid="loc_3" 
 		scale="3 3 3" 
-		position="-64 -6 -1" 
+		position="47 26 64" 
 		material="src: #3" 
 		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
-		handle-events> 
+		portal> 
 	</a-sphere>
+
+	<a-sphere 
+		toid="loc_4" 
+		scale="3 3 3" 
+		position="-11 23 64" 
+		material="src: #4" 
+		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
+		portal> 
+	</a-sphere>
+
       </a-entity>
+
+      <a-entity id="loc_1" visible=false scale="0 0 0">
+        <a-sky material="src: #1" rotation="0 90 0"></a-sky>
+	<a-sphere 
+		toid="loc_5" 
+		scale="3 3 3" 
+		position="-40 0 10" 
+		material="src: #5" 
+		animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear" 
+		portal> 
+	</a-sphere>
+
     </a-scene>
   </body>
 </html>
